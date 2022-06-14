@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: Windows-IIS
 
     steps:
 
@@ -32,3 +32,8 @@ jobs:
           name: public-folder-to-be-deployed-to-iis
           path: public
 
+      - name: Copy the Files from Work Dir to IIS Directory
+        run: |
+          iisreset /stop
+          Copy-Item ./public/* C:/inetpub/wwwroot/ -Recurse -Force
+          iisreset /start
